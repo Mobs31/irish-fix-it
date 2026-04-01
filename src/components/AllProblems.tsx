@@ -3,6 +3,7 @@ import { allProblems, categories, type Category } from "@/data/irelandProblems";
 import { Filter, Plus, Minus, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
+import { categoryIcons } from "@/components/CategoryBreakdown";
 
 export const AllProblems = () => {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
