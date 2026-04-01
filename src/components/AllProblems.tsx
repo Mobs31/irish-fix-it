@@ -3,6 +3,7 @@ import { allProblems, categories, type Category } from "@/data/irelandProblems";
 import { Filter, Plus, Minus, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
+import { categoryIcons } from "@/components/CategoryBreakdown";
 
 export const AllProblems = () => {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
@@ -32,8 +33,13 @@ export const AllProblems = () => {
   }, [selectedCategories, searchQuery]);
 
   return (
-    <section id="all-problems" className="py-20 bg-card/30 scroll-mt-20">
-      <div className="container mx-auto px-6">
+    <section id="all-problems" className="py-20 bg-card/30 scroll-mt-20 relative overflow-hidden">
+      {/* Decorative grid pattern */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{
+        backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',
+        backgroundSize: '30px 30px',
+      }} />
+      <div className="container mx-auto px-6 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -152,7 +158,11 @@ export const AllProblems = () => {
                     <span className="font-display font-bold text-primary text-base">
                       {problem.score}
                     </span>
-                    <span className="text-xs font-body text-muted-foreground">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-body text-muted-foreground">
+                      {(() => {
+                        const CatIcon = categoryIcons[problem.category];
+                        return <CatIcon className="w-3 h-3 text-primary/60" />;
+                      })()}
                       {problem.category}
                     </span>
                     <span className="justify-self-end">

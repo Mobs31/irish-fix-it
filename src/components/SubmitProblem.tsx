@@ -51,8 +51,11 @@ export const SubmitProblem = () => {
   };
 
   return (
-    <section id="submit" className="py-20 px-4 bg-muted/30 scroll-mt-20">
-      <div className="max-w-2xl mx-auto">
+    <section id="submit" className="py-20 px-4 bg-muted/30 scroll-mt-20 relative overflow-hidden">
+      {/* Decorative corner accents */}
+      <div className="absolute top-0 right-0 w-[250px] h-[250px] bg-primary/4 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-irish-orange/4 rounded-full blur-[80px] pointer-events-none" />
+      <div className="max-w-2xl mx-auto relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
