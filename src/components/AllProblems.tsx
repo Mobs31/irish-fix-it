@@ -1,13 +1,14 @@
 import { useState, useMemo } from "react";
 import { allProblems, categories, type Category } from "@/data/irelandProblems";
-import { Filter, Plus, Minus } from "lucide-react";
+import { Filter, Plus, Minus, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Input } from "@/components/ui/input";
 
 export const AllProblems = () => {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [showFilters, setShowFilters] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const toggleCategory = (cat: Category) => {
     setSelectedCategories((prev) =>
       prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
@@ -15,9 +16,20 @@ export const AllProblems = () => {
   };
 
   const filtered = useMemo(() => {
-    if (selectedCategories.length === 0) return allProblems;
-    return allProblems.filter((p) => selectedCategories.includes(p.category));
-  }, [selectedCategories]);
+    let results = allProblems;
+    if (selectedCategories.length > 0) {
+      results = results.filter((p) => selectedCategories.includes(p.category));
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      results = results.filter(
+        (p) =>
+          p.question.toLowerCase().includes(q) ||
+          p.detail?.toLowerCase().includes(q)
+      );
+    }
+    return results;
+  }, [selectedCategories, searchQuery]);
 
   return (
     <section id="all-problems" className="py-20 bg-card/30 scroll-mt-20">
@@ -103,6 +115,16 @@ export const AllProblems = () => {
 
           {/* Problems table */}
           <div className="flex-1">
+            <div className="relative mb-6">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search problems..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 font-body"
+              />
+            </div>
+
             <div className="hidden md:grid grid-cols-[1fr_100px_140px_40px] gap-4 px-5 pb-3 border-b border-border">
               <span className="font-display text-xs font-semibold text-muted-foreground tracking-wider">PROBLEMS</span>
               <span className="font-display text-xs font-semibold text-muted-foreground tracking-wider">SCORE</span>
