@@ -17,6 +17,9 @@ export const Navbar = () => {
           <a href="#all-problems" className="text-muted-foreground hover:text-primary transition-colors">
             All Problems
           </a>
+          <a href="#submit" className="text-muted-foreground hover:text-primary transition-colors">
+            Submit
+          </a>
           <a href="#cta" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:brightness-110 transition">
             Start Building
           </a>

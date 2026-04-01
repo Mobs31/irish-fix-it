@@ -4,6 +4,7 @@ import { StatsBar } from "@/components/StatsBar";
 import { TopProblems } from "@/components/TopProblems";
 import { AllProblems } from "@/components/AllProblems";
 import { CTAFooter } from "@/components/CTAFooter";
+import { SubmitProblem } from "@/components/SubmitProblem";
 import { Navbar } from "@/components/Navbar";
 
 const Index = () => {
@@ -14,6 +15,7 @@ const Index = () => {
       <StatsBar />
       <TopProblems />
       <AllProblems />
+      <SubmitProblem />
       <CTAFooter />
     </div>
   );
