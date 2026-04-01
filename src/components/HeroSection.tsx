@@ -3,7 +3,16 @@ import { motion } from "framer-motion";
 export const HeroSection = () => {
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
+      {/* Primary glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* Secondary accent glow */}
+      <div className="absolute top-40 right-0 w-[400px] h-[400px] bg-irish-orange/3 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/4 rounded-full blur-[80px] pointer-events-none" />
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
+        backgroundImage: 'linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)',
+        backgroundSize: '60px 60px',
+      }} />
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <motion.div

@@ -8,7 +8,9 @@ export const TopProblems = () => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
   return (
-    <section id="top-problems" className="py-20 scroll-mt-20">
+    <section id="top-problems" className="py-20 scroll-mt-20 relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-[130px] pointer-events-none" />
       <div className="container mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

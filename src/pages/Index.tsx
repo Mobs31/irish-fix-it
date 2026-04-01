@@ -6,6 +6,8 @@ import { AllProblems } from "@/components/AllProblems";
 import { CTAFooter } from "@/components/CTAFooter";
 import { SubmitProblem } from "@/components/SubmitProblem";
 import { Navbar } from "@/components/Navbar";
+import { SectionDivider } from "@/components/SectionDivider";
+import { CategoryBreakdown } from "@/components/CategoryBreakdown";
 
 const Index = () => {
   return (
@@ -13,8 +15,13 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <StatsBar />
+      <SectionDivider variant="diamond" />
       <TopProblems />
+      <SectionDivider variant="wave" />
+      <CategoryBreakdown />
+      <SectionDivider variant="dots" />
       <AllProblems />
+      <SectionDivider variant="line" />
       <SubmitProblem />
       <CTAFooter />
     </div>
