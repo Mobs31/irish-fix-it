@@ -33,8 +33,13 @@ export const AllProblems = () => {
   }, [selectedCategories, searchQuery]);
 
   return (
-    <section id="all-problems" className="py-20 bg-card/30 scroll-mt-20">
-      <div className="container mx-auto px-6">
+    <section id="all-problems" className="py-20 bg-card/30 scroll-mt-20 relative overflow-hidden">
+      {/* Decorative grid pattern */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{
+        backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',
+        backgroundSize: '30px 30px',
+      }} />
+      <div className="container mx-auto px-6 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
