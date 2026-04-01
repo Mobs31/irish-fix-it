@@ -2,6 +2,7 @@ import { useState } from "react";
 import { topProblems } from "@/data/irelandProblems";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { categoryIcons } from "@/components/CategoryBreakdown";
 
 export const TopProblems = () => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
