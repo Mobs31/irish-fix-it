@@ -13,7 +13,20 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ["Space Grotesk", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+      },
       colors: {
+        irish: {
+          green: "hsl(var(--irish-green))",
+          white: "hsl(var(--irish-white))",
+          orange: "hsl(var(--irish-orange))",
+          dark: "hsl(var(--irish-dark))",
+          card: "hsl(var(--irish-card))",
+          border: "hsl(var(--irish-border))",
+          glow: "hsl(var(--irish-glow))",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
