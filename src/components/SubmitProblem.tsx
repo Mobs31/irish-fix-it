@@ -40,15 +40,26 @@ export const SubmitProblem = () => {
     }
 
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const { error } = await supabase.from("submitted_problems").insert({
+        name: name.trim() || null,
+        email: email.trim() || null,
+        category,
+        problem: problem.trim(),
+        detail: detail.trim() || null,
+      });
+      if (error) throw error;
       toast.success("Thank you! Your problem has been submitted for review.");
       setName("");
       setEmail("");
       setCategory("");
       setProblem("");
       setDetail("");
-    }, 1000);
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
