@@ -49,9 +49,15 @@ export const TopProblems = () => {
                   {index + 1}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <span className="inline-block px-2.5 py-0.5 rounded-md bg-primary/10 text-primary text-xs font-medium font-body mb-2">
-                    {problem.category}
-                  </span>
+                  {(() => {
+                    const CatIcon = categoryIcons[problem.category];
+                    return (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-primary/10 text-primary text-xs font-medium font-body mb-2">
+                        <CatIcon className="w-3 h-3" />
+                        {problem.category}
+                      </span>
+                    );
+                  })()}
                   <p className="font-body text-foreground font-medium leading-relaxed">
                     {problem.question}
                   </p>
