@@ -1,0 +1,128 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
+import type { Category } from "@/data/irelandProblems";
+
+const categories: Category[] = [
+  "Housing", "Healthcare", "Homelessness", "Cost of Living", "Childcare",
+  "Transport", "Mental Health", "Education", "Environment", "Technology",
+  "Employment", "Rural Issues",
+];
+
+export const SubmitProblem = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [category, setCategory] = useState<string>("");
+  const [problem, setProblem] = useState("");
+  const [detail, setDetail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!problem.trim() || !category) {
+      toast.error("Please fill in the required fields.");
+      return;
+    }
+    if (problem.trim().length < 10) {
+      toast.error("Problem statement must be at least 10 characters.");
+      return;
+    }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setSubmitting(true);
+    // Simulate submission
+    setTimeout(() => {
+      setSubmitting(false);
+      toast.success("Thank you! Your problem has been submitted for review.");
+      setName("");
+      setEmail("");
+      setCategory("");
+      setProblem("");
+      setDetail("");
+    }, 1000);
+  };
+
+  return (
+    <section id="submit" className="py-20 px-4 bg-muted/30">
+      <div className="max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">
+          Submit a Problem
+        </h2>
+        <p className="text-muted-foreground text-center mb-10">
+          Know an issue affecting Ireland that's not on our list? Tell us about it.
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-6 bg-card border border-border rounded-2xl p-6 md:p-8 shadow-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Your Name <span className="text-muted-foreground text-xs">(optional)</span></Label>
+              <Input
+                id="name"
+                placeholder="Seán O'Brien"
+                value={name}
+                onChange={(e) => setName(e.target.value.slice(0, 100))}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email <span className="text-muted-foreground text-xs">(optional)</span></Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="sean@example.ie"
+                value={email}
+                onChange={(e) => setEmail(e.target.value.slice(0, 255))}
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="category">Category <span className="text-destructive">*</span></Label>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((cat) => (
+                  <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="problem">Problem Statement <span className="text-destructive">*</span></Label>
+            <Input
+              id="problem"
+              placeholder="e.g. Rising insurance premiums for young drivers"
+              value={problem}
+              onChange={(e) => setProblem(e.target.value.slice(0, 200))}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="detail">More Detail <span className="text-muted-foreground text-xs">(optional)</span></Label>
+            <Textarea
+              id="detail"
+              placeholder="Describe the problem, who it affects, and why it matters..."
+              rows={4}
+              value={detail}
+              onChange={(e) => setDetail(e.target.value.slice(0, 1000))}
+            />
+          </div>
+
+          <Button type="submit" disabled={submitting} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base py-5">
+            {submitting ? "Submitting…" : "Submit Problem"}
+          </Button>
+        </form>
+      </div>
+    </section>
+  );
+};
