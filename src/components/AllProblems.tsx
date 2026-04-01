@@ -153,7 +153,11 @@ export const AllProblems = () => {
                     <span className="font-display font-bold text-primary text-base">
                       {problem.score}
                     </span>
-                    <span className="text-xs font-body text-muted-foreground">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-body text-muted-foreground">
+                      {(() => {
+                        const CatIcon = categoryIcons[problem.category];
+                        return <CatIcon className="w-3 h-3 text-primary/60" />;
+                      })()}
                       {problem.category}
                     </span>
                     <span className="justify-self-end">
