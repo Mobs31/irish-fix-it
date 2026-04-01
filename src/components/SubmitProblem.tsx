@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 import type { Category } from "@/data/irelandProblems";
 
 const categories: Category[] = [
@@ -38,7 +39,6 @@ export const SubmitProblem = () => {
     }
 
     setSubmitting(true);
-    // Simulate submission
     setTimeout(() => {
       setSubmitting(false);
       toast.success("Thank you! Your problem has been submitted for review.");
@@ -51,16 +51,35 @@ export const SubmitProblem = () => {
   };
 
   return (
-    <section id="submit" className="py-20 px-4 bg-muted/30">
+    <section id="submit" className="py-20 px-4 bg-muted/30 scroll-mt-20">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center"
+        >
           Submit a Problem
-        </h2>
-        <p className="text-muted-foreground text-center mb-10">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="text-muted-foreground text-center mb-10"
+        >
           Know an issue affecting Ireland that's not on our list? Tell us about it.
-        </p>
+        </motion.p>
 
-        <form onSubmit={handleSubmit} className="space-y-6 bg-card border border-border rounded-2xl p-6 md:p-8 shadow-lg">
+        <motion.form
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          onSubmit={handleSubmit}
+          className="space-y-6 bg-card border border-border rounded-2xl p-6 md:p-8 shadow-lg"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">Your Name <span className="text-muted-foreground text-xs">(optional)</span></Label>
@@ -121,7 +140,7 @@ export const SubmitProblem = () => {
           <Button type="submit" disabled={submitting} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base py-5">
             {submitting ? "Submitting…" : "Submit Problem"}
           </Button>
-        </form>
+        </motion.form>
       </div>
     </section>
   );

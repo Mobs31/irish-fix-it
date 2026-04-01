@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { topProblems } from "@/data/irelandProblems";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const TopProblems = () => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -8,17 +9,33 @@ export const TopProblems = () => {
   return (
     <section id="top-problems" className="py-20 scroll-mt-20">
       <div className="container mx-auto px-6">
-        <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-4 text-foreground">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-4 text-foreground"
+        >
           TOP 10 PROBLEMS
-        </h2>
-        <p className="text-center text-muted-foreground font-body mb-16 text-lg">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="text-center text-muted-foreground font-body mb-16 text-lg"
+        >
           The most critical issues facing Ireland today
-        </p>
+        </motion.p>
 
         <div className="max-w-4xl mx-auto space-y-4">
           {topProblems.map((problem, index) => (
-            <div
+            <motion.div
               key={problem.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
               className="group border border-border rounded-xl bg-card hover:border-primary/30 transition-all duration-300 overflow-hidden"
             >
               <button
@@ -48,14 +65,24 @@ export const TopProblems = () => {
                   )}
                 </div>
               </button>
-              {expandedId === problem.id && problem.detail && (
-                <div className="px-5 pb-5 pl-[4.5rem]">
-                  <p className="text-muted-foreground font-body text-sm leading-relaxed border-t border-border pt-4">
-                    {problem.detail}
-                  </p>
-                </div>
-              )}
-            </div>
+              <AnimatePresence>
+                {expandedId === problem.id && problem.detail && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-5 pb-5 pl-[4.5rem]">
+                      <p className="text-muted-foreground font-body text-sm leading-relaxed border-t border-border pt-4">
+                        {problem.detail}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
         </div>
       </div>
