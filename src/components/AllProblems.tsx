@@ -115,6 +115,16 @@ export const AllProblems = () => {
 
           {/* Problems table */}
           <div className="flex-1">
+            <div className="relative mb-6">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search problems..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 font-body"
+              />
+            </div>
+
             <div className="hidden md:grid grid-cols-[1fr_100px_140px_40px] gap-4 px-5 pb-3 border-b border-border">
               <span className="font-display text-xs font-semibold text-muted-foreground tracking-wider">PROBLEMS</span>
               <span className="font-display text-xs font-semibold text-muted-foreground tracking-wider">SCORE</span>
