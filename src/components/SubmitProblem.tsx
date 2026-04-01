@@ -23,7 +23,7 @@ export const SubmitProblem = () => {
   const [detail, setDetail] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!problem.trim() || !category) {
