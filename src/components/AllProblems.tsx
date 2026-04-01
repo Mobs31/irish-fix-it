@@ -16,9 +16,20 @@ export const AllProblems = () => {
   };
 
   const filtered = useMemo(() => {
-    if (selectedCategories.length === 0) return allProblems;
-    return allProblems.filter((p) => selectedCategories.includes(p.category));
-  }, [selectedCategories]);
+    let results = allProblems;
+    if (selectedCategories.length > 0) {
+      results = results.filter((p) => selectedCategories.includes(p.category));
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      results = results.filter(
+        (p) =>
+          p.question.toLowerCase().includes(q) ||
+          p.detail?.toLowerCase().includes(q)
+      );
+    }
+    return results;
+  }, [selectedCategories, searchQuery]);
 
   return (
     <section id="all-problems" className="py-20 bg-card/30 scroll-mt-20">
