@@ -1,13 +1,14 @@
 import { useState, useMemo } from "react";
 import { allProblems, categories, type Category } from "@/data/irelandProblems";
-import { Filter, Plus, Minus } from "lucide-react";
+import { Filter, Plus, Minus, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Input } from "@/components/ui/input";
 
 export const AllProblems = () => {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [showFilters, setShowFilters] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const toggleCategory = (cat: Category) => {
     setSelectedCategories((prev) =>
       prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
