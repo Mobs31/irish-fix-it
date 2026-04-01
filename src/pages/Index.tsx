@@ -15,6 +15,7 @@ const Index = () => {
       <StatsBar />
       <TopProblems />
       <AllProblems />
+      <SubmitProblem />
       <CTAFooter />
     </div>
   );
