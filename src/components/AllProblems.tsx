@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { allProblems, categories, type Category } from "@/data/irelandProblems";
 import { Filter, Plus, Minus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const AllProblems = () => {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
@@ -21,13 +22,25 @@ export const AllProblems = () => {
   return (
     <section id="all-problems" className="py-20 bg-card/30 scroll-mt-20">
       <div className="container mx-auto px-6">
-        <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-16 text-foreground">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-16 text-foreground"
+        >
           ALL PROBLEMS
-        </h2>
+        </motion.h2>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filter sidebar */}
-          <div className="lg:w-64 flex-shrink-0">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
+            className="lg:w-64 flex-shrink-0"
+          >
             <button
               onClick={() => setShowFilters(!showFilters)}
               className="lg:hidden flex items-center gap-2 text-foreground font-display font-semibold mb-4"
@@ -86,11 +99,10 @@ export const AllProblems = () => {
                 </button>
               )}
             </div>
-          </div>
+          </motion.div>
 
           {/* Problems table */}
           <div className="flex-1">
-            {/* Header */}
             <div className="hidden md:grid grid-cols-[1fr_100px_140px_40px] gap-4 px-5 pb-3 border-b border-border">
               <span className="font-display text-xs font-semibold text-muted-foreground tracking-wider">PROBLEMS</span>
               <span className="font-display text-xs font-semibold text-muted-foreground tracking-wider">SCORE</span>
@@ -98,10 +110,16 @@ export const AllProblems = () => {
               <span />
             </div>
 
-            {/* Rows */}
             <div className="divide-y divide-border">
-              {filtered.map((problem) => (
-                <div key={problem.id} className="group">
+              {filtered.map((problem, i) => (
+                <motion.div
+                  key={problem.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.3, delay: Math.min(i * 0.03, 0.3) }}
+                  className="group"
+                >
                   <button
                     onClick={() => setExpandedId(expandedId === problem.id ? null : problem.id)}
                     className="w-full grid grid-cols-1 md:grid-cols-[1fr_100px_140px_40px] gap-2 md:gap-4 px-5 py-4 text-left hover:bg-primary/5 transition-colors items-center"
@@ -123,14 +141,24 @@ export const AllProblems = () => {
                       )}
                     </span>
                   </button>
-                  {expandedId === problem.id && problem.detail && (
-                    <div className="px-5 pb-4">
-                      <p className="text-muted-foreground font-body text-sm leading-relaxed pl-0 md:pl-0 border-t border-border pt-3">
-                        {problem.detail}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                  <AnimatePresence>
+                    {expandedId === problem.id && problem.detail && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 pb-4">
+                          <p className="text-muted-foreground font-body text-sm leading-relaxed border-t border-border pt-3">
+                            {problem.detail}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               ))}
             </div>
 
