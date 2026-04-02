@@ -1,0 +1,1 @@
+CREATE POLICY "Anyone can view submitted problems" ON public.submitted_problems FOR SELECT TO anon, authenticated USING (true);
