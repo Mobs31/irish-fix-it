@@ -61,7 +61,16 @@ export const CTAFooter = () => {
             </span>
           </div>
           <p className="text-xs text-muted-foreground font-body">
-            Research-backed. Community-driven. Built for builders.
+            Research-backed. Community-driven. Built for builders. Inspired by{" "}
+            <a
+              href="https://razorpay.com/m/fix-my-itch/#all-problems"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Razorpay
+            </a>
+            .
           </p>
         </div>
       </div>
